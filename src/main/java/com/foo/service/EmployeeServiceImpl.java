@@ -3,6 +3,7 @@ package com.foo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +11,7 @@ import com.foo.dao.EmployeeDao;
 import com.foo.model.Employee;
 
 @Service("employeeService")
+@ComponentScan("com.foo.dao") 
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 

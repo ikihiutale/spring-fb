@@ -4,10 +4,13 @@ import java.io.Serializable;
 
 import java.lang.reflect.ParameterizedType;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.criteria.CriteriaQuery;
 
 public abstract class AbstractDao<PK extends Serializable, T> {
 	
@@ -37,8 +40,11 @@ public abstract class AbstractDao<PK extends Serializable, T> {
 		getSession().delete(entity);
 	}
 	
-	protected Criteria createEntityCriteria(){
+	protected Criteria createEntityCriteria() {
 		return getSession().createCriteria(persistentClass);
 	}
-
+	
+//	protected CriteriaQuery<T> createEntityCriteria() {
+//		return getSession().getCriteriaBuilder().createQuery(persistentClass);
+//	}
 }
