@@ -2,13 +2,13 @@
 
 ## DB
 ```
-DROP DATABASE IF EXISTS springfoofb;
-CREATE DATABASE springfoofb CHARACTER SET utf8 COLLATE utf8_bin;
+DROP DATABASE IF EXISTS springfoofb_db;
+CREATE DATABASE springfoofb_db CHARACTER SET utf8 COLLATE utf8_bin;
 
 use springfoofb;
 
-CREATE USER 'foouser'@'localhost' IDENTIFIED BY 'foopassword';
-GRANT ALL PRIVILEGES ON * . * TO 'foouser'@'localhost';
+CREATE USER 'foousername'@'localhost' IDENTIFIED BY 'foopasswd';
+GRANT ALL PRIVILEGES ON springfoofb_db.* TO 'foousername'@'localhost' IDENTIFIED BY 'foopasswd' WITH GRANT OPTION; 
 
 CREATE TABLE EMPLOYEE(
     id INT NOT NULL auto_increment, 
