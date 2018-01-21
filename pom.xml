@@ -17,6 +17,7 @@
     <spring-oxm.version>3.0.4.RELEASE</spring-oxm.version>
     <hibernate.version>5.2.12.Final</hibernate.version>
     <hibernate-validator.version>6.0.0.Final</hibernate-validator.version>
+    <tomcat-dbcp.version>9.0.2</tomcat-dbcp.version>
     <mysql.connector.version>6.0.6</mysql.connector.version>
     <joda-time.version>2.9.9</joda-time.version>
     <jadira.usertype.version>6.0.1.GA</jadira.usertype.version>
@@ -117,6 +118,13 @@
     	<groupId>org.hibernate</groupId>
     	<artifactId>hibernate-validator</artifactId>
     	<version>${hibernate-validator.version}</version>
+    </dependency>
+    
+    <!-- Tomcat connection pool – DriverManagerDataSource -->
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-dbcp</artifactId>
+      <version>${tomcat-dbcp.version}</version>
     </dependency>
     
     <!-- MySQL -->
