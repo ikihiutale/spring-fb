@@ -5,6 +5,8 @@ import java.util.Locale;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,7 +25,7 @@ import com.foo.service.EmployeeService;
 @ComponentScan("com.foo.service") 
 @RequestMapping("/")
 public class AppController {
-	
+	private final Logger LOGGER = LoggerFactory.getLogger(AppController.class);
 	static final String REGISTRATION_VIEW = "registration";
 
 	@Autowired
@@ -37,7 +39,7 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
 	public String listEmployees(ModelMap model) {
-
+		LOGGER.debug("*** listEmployees..");
 		List<Employee> employees = service.findAllEmployees();
 		model.addAttribute("employees", employees);
 		return "allemployees";
@@ -48,6 +50,7 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/new" }, method = RequestMethod.GET)
 	public String newEmployee(ModelMap model) {
+		LOGGER.debug("*** newEmployee..");
 		Employee employee = new Employee();
 		model.addAttribute("employee", employee);
 		model.addAttribute("edit", false);
@@ -61,6 +64,7 @@ public class AppController {
 	@RequestMapping(value = { "/new" }, method = RequestMethod.POST)
 	public String saveEmployee(@Valid Employee employee, BindingResult result,
 			ModelMap model) {
+		LOGGER.debug("*** saveEmployee..");
 
 		if (result.hasErrors()) {
 			return REGISTRATION_VIEW;
@@ -92,6 +96,9 @@ public class AppController {
 	 */
 	@RequestMapping(value = { "/edit-{ssn}-employee" }, method = RequestMethod.GET)
 	public String editEmployee(@PathVariable String ssn, ModelMap model) {
+		
+		LOGGER.debug("*** editEmployee {} ..", ssn);
+
 		Employee employee = service.findEmployeeBySsn(ssn);
 		model.addAttribute("employee", employee);
 		model.addAttribute("edit", true);
@@ -105,6 +112,7 @@ public class AppController {
 	@RequestMapping(value = { "/edit-{ssn}-employee" }, method = RequestMethod.POST)
 	public String updateEmployee(@Valid Employee employee, BindingResult result,
 			ModelMap model, @PathVariable String ssn) {
+		LOGGER.debug("*** updateEmployee..{}", ssn);
 
 		if (result.hasErrors()) {
 			return "registration";
