@@ -22,6 +22,14 @@ CREATE TABLE EMPLOYEE(
 
 ## Tomcat
 
+### startup.bat Windows
+
+set JPDA_ADDRESS=8014
+set JPDA_TRANSPORT=dt_socket
+
+call "%EXECUTABLE%" jpda start %CMD_LINE_ARGS%
+rem call "%EXECUTABLE%" start %CMD_LINE_ARGS%
+
 ### tomcat-users.xml ([tomcat -> conf)
 
 ```
