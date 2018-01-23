@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.foo</groupId>
-  <artifactId>spring-fb-app</artifactId>
+  <artifactId>springfb</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>spring-fb-app Maven Webapp</name>
@@ -24,8 +24,10 @@
     <jadira.usertype.version>6.0.1.GA</jadira.usertype.version>
     <jackson.version>2.7.2</jackson.version>
     <tiles.version>3.0.7</tiles.version>
-    <jetty.version>9.4.8.v20171121</jetty.version>
-    <log4j2.version>2.10.0</log4j2.version>
+    <jetty.version>9.3.9.v20160517</jetty.version>
+<!--     <jetty.version>9.4.8.v20171121</jetty.version> -->
+    <log4j2.version>2.6.1</log4j2.version>
+    <slf4j.version>1.7.25</slf4j.version>
     <junit.version>3.8.1</junit.version>
     <testng.version>6.13.1</testng.version>
     <mockito.version>1.10.19</mockito.version>
@@ -71,14 +73,6 @@
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
       <version>${jstl.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>javax.servlet.jsp-api</artifactId>
-      <version>${servlet.jsp.version}</version>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -88,6 +82,13 @@
       <scope>provided</scope>
     </dependency>
     
+<!--     <dependency> -->
+<!--       <groupId>javax.el</groupId> -->
+<!--       <artifactId>javax.el-api</artifactId> -->
+<!--       <version>3.0.0</version> -->
+<!--       <scope>provided</scope> -->
+<!--     </dependency> -->
+
     <!-- Spring XML Marshalling Dependency -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -157,35 +158,41 @@
     </dependency>
         
     <!-- Tiles API -->
-    <dependency>
-        <groupId>org.apache.tiles</groupId>
-        <artifactId>tiles-api</artifactId>
-        <version>${tiles.version}</version>
-    </dependency>
+<!--     <dependency> -->
+<!--         <groupId>org.apache.tiles</groupId> -->
+<!--         <artifactId>tiles-api</artifactId> -->
+<!--         <version>${tiles.version}</version> -->
+<!--     </dependency> -->
 
-    <dependency>
-        <groupId>org.apache.tiles</groupId>
-        <artifactId>tiles-core</artifactId>
-        <version>${tiles.version}</version>
-    </dependency>
+<!--     <dependency> -->
+<!--         <groupId>org.apache.tiles</groupId> -->
+<!--         <artifactId>tiles-core</artifactId> -->
+<!--         <version>${tiles.version}</version> -->
+<!--     </dependency> -->
 
-    <dependency>
-        <groupId>org.apache.tiles</groupId>
-        <artifactId>tiles-servlet</artifactId>
-        <version>${tiles.version}</version>
-    </dependency>
+<!--     <dependency> -->
+<!--         <groupId>org.apache.tiles</groupId> -->
+<!--         <artifactId>tiles-servlet</artifactId> -->
+<!--         <version>${tiles.version}</version> -->
+<!--     </dependency> -->
 
-    <dependency>
-        <groupId>org.apache.tiles</groupId>
-        <artifactId>tiles-jsp</artifactId>
-        <version>${tiles.version}</version>
-    </dependency>
+<!--     <dependency> -->
+<!--         <groupId>org.apache.tiles</groupId> -->
+<!--         <artifactId>tiles-jsp</artifactId> -->
+<!--         <version>${tiles.version}</version> -->
+<!--     </dependency> -->
  
     <!-- Logging -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
       <version>${log4j2.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
 
     <!-- Testing -->
@@ -228,7 +235,7 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>SpringFB</finalName>
+    <finalName>${project.artifactId}</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -255,33 +262,39 @@
         </configuration> 
       </plugin>
       
-      <plugin>
-        <groupId>org.apache.tomcat.maven</groupId>
-        <artifactId>tomcat7-maven-plugin</artifactId>
-        <version>2.2</version>
-        <configuration>
-          <path>/</path>
-          <port>8899</port>
-        </configuration>
-      </plugin>
+<!--       <plugin> -->
+<!--         <groupId>org.apache.tomcat.maven</groupId> -->
+<!--         <artifactId>tomcat7-maven-plugin</artifactId> -->
+<!--         <version>2.2</version> -->
+<!--         <configuration> -->
+<!--           <path>/</path> -->
+<!--           <port>8899</port> -->
+<!--         </configuration> -->
+<!--       </plugin> -->
       
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-eclipse-plugin</artifactId>
         <version>2.9</version>
-        <configuration>
-          <downloadSources>true</downloadSources>
-          <downloadJavadocs>true</downloadJavadocs>
-        </configuration>
       </plugin>
 
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <configuration>
+          <port>8080</port>
+          <path>/</path>
+          <username>admin</username>  
+          <password>password</password>    
+        </configuration>
+      </plugin>
+        
+      <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>2.4</version>
         <configuration>
           <warSourceDirectory>src/main/webapp</warSourceDirectory>
-            <warName>SpringFB</warName>
+            <warName>springfb</warName>
             <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>

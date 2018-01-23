@@ -19,3 +19,43 @@ CREATE TABLE EMPLOYEE(
     PRIMARY KEY (id)
 );
 ```
+
+## Tomcat
+
+### tomcat-users.xml ([tomcat -> conf)
+
+```
+<tomcat-users>
+  <role rolename="manager-gui"/>  
+  <role rolename="manager-script"/>   
+  <user username="admin" password="password" roles="manager-gui,manager-script" />  
+</tomcat-users>
+```
+
+### Maven settings.xml (maven > conf)
+
+```
+<servers>  
+    <server>
+       <id>TomcatServer</id>
+       <username>admin</username>
+       <password>password</password>
+    </server>
+</servers>    
+```
+
+### Tomcat plugin pom.xml
+
+```
+<plugin>
+  <groupId>org.apache.tomcat.maven</groupId>
+  <artifactId>tomcat8-maven-plugin</artifactId>
+  <version>3.0-r1756463</version>
+  <configuration>
+    <port>8080</port>
+    <path>/</path>
+    <username>admin</username>  
+    <password>password</password>    
+  </configuration>
+</plugin>
+```
