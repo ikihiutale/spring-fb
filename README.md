@@ -49,13 +49,21 @@ CREATE TABLE EMPLOYEE(
 ```
 <plugin>
   <groupId>org.apache.tomcat.maven</groupId>
-  <artifactId>tomcat8-maven-plugin</artifactId>
-  <version>3.0-r1756463</version>
+  <artifactId>tomcat7-maven-plugin</artifactId>
   <configuration>
     <port>8080</port>
     <path>/</path>
     <username>admin</username>  
-    <password>password</password>    
+    <password>password</password>      
+    <contextReloadable>true</contextReloadable>
+    <systemProperties>
+      <JAVA_OPTS>-Xms256m -Xmx1024m -XX:+DisableExplicitGC -Dcom.sun.management.jmxremote -XX:PermSize=256m -XX:MaxPermSize=512m</JAVA_OPTS>
+      <MAVEN_OPTS>-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8013</MAVEN_OPTS>
+    </systemProperties>
   </configuration>
 </plugin>
 ```
+
+### Build
+
+mvn clean eclipse:eclipse
