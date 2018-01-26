@@ -16,4 +16,5 @@ public interface EmployeeDao {
 
 	Employee findEmployeeBySsn(String ssn);
 
+	Employee findEmployeeBySsn2(String ssn);
 }

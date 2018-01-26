@@ -50,11 +50,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	public Employee findEmployeeBySsn(String ssn) {
-		return dao.findEmployeeBySsn(ssn);
+		return dao.findEmployeeBySsn2(ssn);
 	}
 
 	public boolean isEmployeeSsnUnique(Integer id, String ssn) {
-		Employee employee = findEmployeeBySsn(ssn);
+		Employee employee = dao.findEmployeeBySsn2(ssn);
 		return ( employee == null || ((id != null) && (employee.getId() == id)));
 	}
 }

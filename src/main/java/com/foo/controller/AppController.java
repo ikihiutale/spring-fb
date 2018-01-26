@@ -79,7 +79,7 @@ public class AppController {
 		 * 
 		 */
 		if(!service.isEmployeeSsnUnique(employee.getId(), employee.getSsn())){
-			FieldError ssnError =new FieldError("employee","ssn",messageSource.getMessage("non.unique.ssn", new String[]{employee.getSsn()}, Locale.getDefault()));
+			FieldError ssnError = new FieldError("employee","ssn",messageSource.getMessage("non.unique.ssn", new String[]{employee.getSsn()}, Locale.getDefault()));
 		    result.addError(ssnError);
 			return REGISTRATION_VIEW;
 		}

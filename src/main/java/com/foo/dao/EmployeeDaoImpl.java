@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.foo.model.Employee;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
 
 @Repository("employeeDao")
 public class EmployeeDaoImpl extends AbstractDao<Integer, Employee> implements EmployeeDao {
@@ -43,17 +46,23 @@ public class EmployeeDaoImpl extends AbstractDao<Integer, Employee> implements E
 	}
 
 	public Employee findEmployeeBySsn(String ssn) {
+		Criteria criteria = createEntityCriteria();
+		criteria.add(Restrictions.eq("ssn", ssn));
+		return (Employee) criteria.uniqueResult();
+	}
+	
+	public Employee findEmployeeBySsn2(String ssn) {
 		LOGGER.debug("*** findEmployeeBySsn: {}", ssn);
 		CriteriaBuilder cb = getSession().getCriteriaBuilder();
 		CriteriaQuery<Employee> query = createEntityCriteriaQuery();
 	    Root<Employee> emp = query.from(Employee.class);
 	    query.select(emp);
-	    query.distinct(true);
+	    query.distinct(true);	
 	    query.where(cb.like(emp.<String>get("ssn"),
 	                            cb.parameter(String.class, "ssn")));
 	        		
 		TypedQuery<Employee> tq = getSession().createQuery(query);
         tq.setParameter("ssn", ssn);
-        return tq.getSingleResult();
+        return tq.getResultList().stream().findFirst().orElse(null);
 	}
 }
