@@ -55,23 +55,34 @@ rem call "%EXECUTABLE%" start %CMD_LINE_ARGS%
 ### Tomcat plugin pom.xml
 
 ```
-<plugin>
-  <groupId>org.apache.tomcat.maven</groupId>
-  <artifactId>tomcat7-maven-plugin</artifactId>
-  <configuration>
-    <port>8080</port>
-    <path>/</path>
-    <username>admin</username>  
-    <password>password</password>      
-    <contextReloadable>true</contextReloadable>
-    <systemProperties>
-      <JAVA_OPTS>-Xms256m -Xmx1024m -XX:+DisableExplicitGC -Dcom.sun.management.jmxremote -XX:PermSize=256m -XX:MaxPermSize=512m</JAVA_OPTS>
-      <MAVEN_OPTS>-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8013</MAVEN_OPTS>
-    </systemProperties>
-  </configuration>
-</plugin>
+  <plugin>
+    <groupId>org.apache.tomcat.maven</groupId>
+    <artifactId>tomcat7-maven-plugin</artifactId>
+    <version>2.2</version>
+    <configuration>
+      <port>8080</port>
+      <url>http://localhost:8080/manager/text</url>  
+      <server>TomcatServer</server>
+      <username>admin</username>  
+      <password>password</password>      
+      <contextReloadable>true</contextReloadable>
+    </configuration>
+  </plugin>
 ```
 
-### Build
+### (tomcat)/bin/startup.bat:
+Add JPDA values:
+```
+set JPDA_ADDRESS=8014
+set JPDA_TRANSPORT=dt_socket
+```
 
-mvn clean eclipse:eclipse
+### Deploy
+
+> Start tomcat by clicking the (tomcat)/bin/startup.bat file 
+> mvn clean install tomcat7:redeploy (or tomcat7:deploy)
+
+### Debug
+
+> Create new Remote Java Application item. Host: localhost, Port: 8014
+

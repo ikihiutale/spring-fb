@@ -86,7 +86,7 @@ public class AppController {
 		
 		service.saveEmployee(employee);
 
-		model.addAttribute("success", "Employee " + employee.getName() + " registered successfully");
+		model.addAttribute("success", "Employee " + employee.getName() + " registered successfully :-)");
 		return "success";
 	}
 
@@ -126,7 +126,7 @@ public class AppController {
 
 		service.updateEmployee(employee);
 
-		model.addAttribute("success", "Employee " + employee.getName()	+ " updated successfully");
+		model.addAttribute("success", "Employee " + employee.getName()	+ " updated successfully ;-)");
 		return "success";
 	}
 
