@@ -1,4 +1,7 @@
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,9 +20,20 @@
     <div class="container">
       <h2>List of Employees</h2>	
       <table class="table table-striped">
+      	<sec:authorize access="hasRole('ROLE_USER')">
+	      <p>
+	      	This text is only visible to a user
+		  </p>
+		</sec:authorize>
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+	      <p>
+	      	This text is only visible to an admin
+		  </p>
+		</sec:authorize>
+
         <thead>
           <tr>
-            <th>Name</th>
+            <th>Name..</th>
             <th>Joining Data</th>
             <th>Salary</th>
             <th>SSN</th>

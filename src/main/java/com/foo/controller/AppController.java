@@ -140,4 +140,13 @@ public class AppController {
 		return "redirect:/list";
 	}
 
+	/**
+	 * This method handles Access-Denied redirect.
+	 */
+	@RequestMapping(value = "/access-denied", method = RequestMethod.GET)
+	public String accessDeniedPage(ModelMap model) {
+		// model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("loggedinuser", "???");
+		return "accessDenied";
+	}
 }

@@ -8,13 +8,22 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+  <!-- Declares explicit support for annotation-driven MVC controllers (i.e. @RequestMapping, @Controller, etc.) -->
   <mvc:annotation-driven/>
+
+  <!-- Declares support for general annotations such as @Required, @Autowired, @PostConstruct, and so on. 
+       Once annotation injection is enabled, autowiring can be used on properties, setters, and constructors.
+  -->
+  <context:annotation-config /> 
 
   <mvc:resources mapping="/resources/**" location="/resources/" />
   <context:property-placeholder location="classpath:application.properties"/>
 	
   <context:component-scan base-package="com.foo"/>
   
+  <!-- Load additional configuration -->
+  <import resource="spring-security-config.xml" />
+   
   <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
     <property name="favorPathExtension" value="true"/>
     <property name="ignoreAcceptHeader" value="true" />

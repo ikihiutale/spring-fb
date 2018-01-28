@@ -1,5 +1,15 @@
 # Spring FB 
 
+Tools and technologies
+
+* Spring MVC 4.3.12.RELEASE
+* Spring Security 4.2.4.RELEASE
+* Java JDK 1.8.0_162
+* Maven 3.3.9
+* Eclipse Oxygen.2
+* Apache Tomcat 8.5.24
+
+
 ## DB
 ```
 DROP DATABASE IF EXISTS springfoofb_db;
