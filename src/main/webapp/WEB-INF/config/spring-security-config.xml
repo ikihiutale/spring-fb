@@ -11,10 +11,11 @@
     <intercept-url pattern="/resources/**" access="permitAll" />
     <intercept-url pattern="/login*" access="permitAll" />
     <intercept-url pattern="/" access="hasAnyRole('USER', 'ADMIN')" />
-    <intercept-url pattern="/list" access="hasAnyRole('USER', 'ADMIN')" />
-    <intercept-url pattern="/newuser/**" access="hasRole('ADMIN')" />
-    <intercept-url pattern="/delete-user-*" access="hasRole('ADMIN')" />
-    <intercept-url pattern="/edit-user-*" access="hasRole('ADMIN')" />
+    <intercept-url pattern="/list-employees" access="hasAnyRole('USER', 'ADMIN')" />
+    <intercept-url pattern="/new-employee/**" access="hasRole('ADMIN')" />
+    <intercept-url pattern="/delete-employee*" access="hasRole('ADMIN')" />
+    <intercept-url pattern="/edit-employee*" access="hasRole('ADMIN')" />
+    <intercept-url  pattern="/user/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
     
     <form-login
         login-page='/login'

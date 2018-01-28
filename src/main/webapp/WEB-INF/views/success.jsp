@@ -15,7 +15,7 @@
     <div class="container">
       <div class="jumbotron">
         <h1>Message: ${success}</h1>
-        <a class="btn btn-lg btn-primary" href="<c:url value='/list' />" role="button">List of All Employees</a>
+        <a class="btn btn-lg btn-primary" href="<c:url value='/list-employees' />" role="button">List of All Employees</a>
       </div>
     </div>
   </body>

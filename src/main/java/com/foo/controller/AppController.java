@@ -32,7 +32,7 @@ import com.foo.service.EmployeeService;
 @RequestMapping("/")
 public class AppController {
 	private final Logger LOGGER = LoggerFactory.getLogger(AppController.class);
-	static final String REGISTRATION_VIEW = "registration";
+	static final String REGISTRATION_VIEW = "employeeRegistration";
 
 	@Autowired
 	EmployeeService service;
@@ -43,7 +43,7 @@ public class AppController {
 	/*
 	 * This method will list all existing employees.
 	 */
-	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/list-employees" }, method = RequestMethod.GET)
 	public String listEmployees(ModelMap model) {
 		LOGGER.debug("*** listEmployees..");
 		List<Employee> employees = service.findAllEmployees();
@@ -54,7 +54,7 @@ public class AppController {
 	/*
 	 * This method will provide the medium to add a new employee.
 	 */
-	@RequestMapping(value = { "/new" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/new-employee" }, method = RequestMethod.GET)
 	public String newEmployee(ModelMap model) {
 		LOGGER.debug("*** newEmployee..");
 		Employee employee = new Employee();
@@ -67,7 +67,7 @@ public class AppController {
 	 * This method will be called on form submission, handling POST request for
 	 * saving employee in database. It also validates the user input
 	 */
-	@RequestMapping(value = { "/new" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/new-employee" }, method = RequestMethod.POST)
 	public String saveEmployee(@Valid Employee employee, BindingResult result,
 			ModelMap model) {
 		LOGGER.debug("*** saveEmployee..");
@@ -85,7 +85,8 @@ public class AppController {
 		 * 
 		 */
 		if(!service.isEmployeeSsnUnique(employee.getId(), employee.getSsn())){
-			FieldError ssnError = new FieldError("employee","ssn",messageSource.getMessage("non.unique.ssn", new String[]{employee.getSsn()}, Locale.getDefault()));
+			FieldError ssnError = new FieldError(
+					"employee", "ssn", messageSource.getMessage("non.unique.ssn", new String[]{employee.getSsn()}, Locale.getDefault()));
 		    result.addError(ssnError);
 			return REGISTRATION_VIEW;
 		}
@@ -108,7 +109,7 @@ public class AppController {
 		Employee employee = service.findEmployeeBySsn(ssn);
 		model.addAttribute("employee", employee);
 		model.addAttribute("edit", true);
-		return "registration";
+		return REGISTRATION_VIEW;
 	}
 	
 	/*
@@ -121,13 +122,13 @@ public class AppController {
 		LOGGER.debug("*** updateEmployee..{}", ssn);
 
 		if (result.hasErrors()) {
-			return "registration";
+			return REGISTRATION_VIEW;
 		}
 
 		if(!service.isEmployeeSsnUnique(employee.getId(), employee.getSsn())){
-			FieldError ssnError =new FieldError("employee","ssn",messageSource.getMessage("non.unique.ssn", new String[]{employee.getSsn()}, Locale.getDefault()));
+			FieldError ssnError = new FieldError("employee","ssn", messageSource.getMessage("non.unique.ssn", new String[]{employee.getSsn()}, Locale.getDefault()));
 		    result.addError(ssnError);
-			return "registration";
+			return REGISTRATION_VIEW;
 		}
 
 		service.updateEmployee(employee);
@@ -165,7 +166,7 @@ public class AppController {
 	 * @return
 	 */
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    if (auth != null){    
 	        new SecurityContextLogoutHandler().logout(request, response, auth);

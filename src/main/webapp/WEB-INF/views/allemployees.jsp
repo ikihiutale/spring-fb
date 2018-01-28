@@ -56,7 +56,7 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Name..</th>
+              <th>Name</th>
               <th>Joining Data</th>
               <th>Salary</th>
               <th>SSN</th>
@@ -76,7 +76,7 @@
           </tbody>
         </table>
           <div class="jumbotron">
-            <a class="btn btn-lg btn-primary" href="<c:url value='/new' />" role="button">Add New Employee</a>
+            <a class="btn btn-lg btn-primary" href="<c:url value='/new-employee' />" role="button">Add New Employee</a>
         </div>
       </div>
     </div>
