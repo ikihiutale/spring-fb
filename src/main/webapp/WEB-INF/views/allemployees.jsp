@@ -18,42 +18,66 @@
   
   <body>
     <div class="container">
-      <h2>List of Employees</h2>	
-      <table class="table table-striped">
-      	<sec:authorize access="hasRole('ROLE_USER')">
-	      <p>
-	      	This text is only visible to a user
-		  </p>
-		</sec:authorize>
-		<sec:authorize access="hasRole('ROLE_ADMIN')">
-	      <p>
-	      	This text is only visible to an admin
-		  </p>
-		</sec:authorize>
 
-        <thead>
-          <tr>
-            <th>Name..</th>
-            <th>Joining Data</th>
-            <th>Salary</th>
-            <th>SSN</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <c:forEach items="${employees}" var="employee">
+      <!-- Navigation bar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Spring FB</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="<c:url value="/logout" />">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="panel panel-default">      
+        <h2>List of Employees</h2>	
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+  	 	<p>
+            This text is only visible to a ROLE_ADMIN
+  		</p>
+  	  </sec:authorize>
+        <sec:authorize access="hasRole('ROLE_USER')">
+  	   <p>
+  	     This text is only visible to an ROLE_USER
+  	   </p>
+        </sec:authorize>
+        <table class="table table-striped">
+          <thead>
             <tr>
-  			<td>${employee.name}</td>
-  			<td>${employee.joiningDate}</td>
-  			<td>${employee.salary}</td>
-  			<td><a href="<c:url value='/edit-${employee.ssn}-employee' />">${employee.ssn}</a></td>
-  			<td><a href="<c:url value='/delete-${employee.ssn}-employee' />">delete</a></td>
+              <th>Name..</th>
+              <th>Joining Data</th>
+              <th>Salary</th>
+              <th>SSN</th>
+              <th></th>
             </tr>
-          </c:forEach>
-        </tbody>
-      </table>
-        <div class="jumbotron">
-          <a class="btn btn-lg btn-primary" href="<c:url value='/new' />" role="button">Add New Employee</a>
+          </thead>
+          <tbody>
+            <c:forEach items="${employees}" var="employee">
+              <tr>
+    			<td>${employee.name}</td>
+    			<td>${employee.joiningDate}</td>
+    			<td>${employee.salary}</td>
+    			<td><a href="<c:url value='/edit-${employee.ssn}-employee' />">${employee.ssn}</a></td>
+    			<td><a href="<c:url value='/delete-${employee.ssn}-employee' />">delete</a></td>
+              </tr>
+            </c:forEach>
+          </tbody>
+        </table>
+          <div class="jumbotron">
+            <a class="btn btn-lg btn-primary" href="<c:url value='/new' />" role="button">Add New Employee</a>
+        </div>
       </div>
     </div>
   </body>

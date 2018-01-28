@@ -5,3 +5,24 @@
 .authbar {
 	margin-bottom:15px;
 }
+
+.login-container {
+    margin-top: 100px;
+    background-color: floralwhite;
+    width: 40%;
+    left: 30%;
+    position: absolute;
+}
+
+.login-card {
+    width: 80%;
+    margin: auto;
+}
+.login-form {
+    padding: 10%;
+}
+
+.form-actions {
+	padding-right: 10px;
+	padding-left: 10px;	
+}
