@@ -9,14 +9,18 @@
 
   <http auto-config="true">
     <intercept-url pattern="/resources/**" access="permitAll" />
-    <intercept-url pattern="/login*" access="isAnonymous()" />
-    <intercept-url pattern="/**" access="isAuthenticated()" />
+    <intercept-url pattern="/login*" access="permitAll" />
+    <intercept-url pattern="/" access="hasAnyRole('USER', 'ADMIN')" />
+    <intercept-url pattern="/list" access="hasAnyRole('USER', 'ADMIN')" />
+    <intercept-url pattern="/newuser/**" access="hasRole('ADMIN')" />
+    <intercept-url pattern="/delete-user-*" access="hasRole('ADMIN')" />
+    <intercept-url pattern="/edit-user-*" access="hasRole('ADMIN')" />
     
     <form-login
         login-page='/login'
         default-target-url="/"
         authentication-failure-url="/login?error"
-        username-parameter="username"
+        username-parameter="ssoId"
 	    password-parameter="password" />
       
     <logout logout-success-url="/login?logout" />
@@ -28,6 +32,7 @@
           <user-service>
               <user name="user" password="passwd" authorities="ROLE_USER" />
               <user name="admin" password="passwd" authorities="ROLE_ADMIN" />
+              <user name="dba" password="passwd" authorities="ROLE_DBA" />
           </user-service>
       </authentication-provider>
   </authentication-manager>
