@@ -144,7 +144,7 @@ public class AppController {
 	@RequestMapping(value = { "/delete-{ssn}-employee" }, method = RequestMethod.GET)
 	public String deleteEmployee(@PathVariable String ssn) {
 		service.deleteEmployeeBySsn(ssn);
-		return "redirect:/list";
+		return "redirect:/list-employees";
 	}
 
 	/**
