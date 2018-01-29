@@ -7,9 +7,12 @@
         http://www.springframework.org/schema/security
         http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
+  <!--  auto-config="true" for default login and logout -->
   <http auto-config="true">
     <intercept-url pattern="/resources/**" access="permitAll" />
     <intercept-url pattern="/login*" access="permitAll" />
+    <intercept-url pattern="/access-denied*" access="permitAll" />
+    
     <intercept-url pattern="/" access="hasAnyRole('USER', 'ADMIN')" />
     <intercept-url pattern="/list-employees" access="hasAnyRole('USER', 'ADMIN')" />
     <intercept-url pattern="/new-employee/**" access="hasRole('ADMIN')" />
@@ -25,17 +28,29 @@
 	    password-parameter="password" />
       
     <logout logout-success-url="/login?logout" />
+    <!-- Enables the @Secured annotation used with the methods -->
+    <access-denied-handler error-page="/access-denied"/>
     <csrf/>  
   </http>
 
+  <beans:bean name="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>  
+  <beans:bean name="fooUserDetailsService" class="com.foo.service.FooUserDetailsService"/>
+  <beans:bean name="userService" class="com.foo.service.UserService"/>        
+
   <authentication-manager>
-      <authentication-provider>
-          <user-service>
-              <user name="user" password="passwd" authorities="ROLE_USER" />
-              <user name="admin" password="passwd" authorities="ROLE_ADMIN" />
-              <user name="dba" password="passwd" authorities="ROLE_DBA" />
-          </user-service>
-      </authentication-provider>
+    <authentication-provider user-service-ref="fooUserDetailsService">
+        <password-encoder ref="bcryptEncoder"/>
+    </authentication-provider>
   </authentication-manager>
+  <global-method-security secured-annotations="enabled" />
+  
+<!--   <authentication-manager> -->
+<!--       <authentication-provider> -->
+<!--           <user-service> -->
+<!--               <user name="user" password="passwd" authorities="ROLE_USER" /> -->
+<!--               <user name="admin" password="passwd" authorities="ROLE_ADMIN" /> -->
+<!--           </user-service> -->
+<!--       </authentication-provider> -->
+<!--   </authentication-manager> -->
 
 </beans:beans>
