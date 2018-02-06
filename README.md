@@ -31,23 +31,33 @@ CREATE TABLE EMPLOYEE(
 
 create table APP_USER (
    id BIGINT NOT NULL AUTO_INCREMENT,
-   sso_id VARCHAR(30) NOT NULL,
+   username VARCHAR(30) NOT NULL,
    password VARCHAR(100) NOT NULL,
-   first_name VARCHAR(30) NOT NULL,
-   last_name  VARCHAR(30) NOT NULL,
-   email VARCHAR(30) NOT NULL,
+   enabled TINYINT(1) NOT NULL,
+   first_name VARCHAR(30),
+   last_name  VARCHAR(30),
    PRIMARY KEY (id),
-   UNIQUE (sso_id)
+   UNIQUE (username)
 );
+
+/* Username: admin, password: password */
+INSERT INTO APP_USER(username, password, enabled, first_name, last_name)
+VALUES ('admin','$2a$10$pERt8zEqxNecTp8P8MEuxOj/bHrqgVoBDcMnC3fu8yte6kiPqzP66', 1, '', '');
    
 /* USER_PROFILE table contains all possible roles */ 
-create table USER_PROFILE(
+create table USER_PROFILE (
    id BIGINT NOT NULL AUTO_INCREMENT,
    type VARCHAR(30) NOT NULL,
    PRIMARY KEY (id),
    UNIQUE (type)
 );
-     
+  
+INSERT INTO USER_PROFILE(type)
+VALUES ('ROLE_USER');
+  
+INSERT INTO USER_PROFILE(type)
+VALUES ('ROLE_ADMIN');
+   
 CREATE TABLE APP_USER_USER_PROFILE (
     user_id BIGINT NOT NULL,
     user_profile_id BIGINT NOT NULL,
@@ -56,11 +66,10 @@ CREATE TABLE APP_USER_USER_PROFILE (
     CONSTRAINT FK_USER_PROFILE FOREIGN KEY (user_profile_id) REFERENCES USER_PROFILE (id)
 );
   
-INSERT INTO USER_PROFILE(type)
-VALUES ('USER');
+INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
+  SELECT user.id, profile.id FROM app_user user, user_profile profile
+  where user.username='admin' and profile.type='ROLE_ADMIN';
   
-INSERT INTO USER_PROFILE(type)
-VALUES ('ADMIN');
   
 ```
 
